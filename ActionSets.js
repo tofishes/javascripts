@@ -14,6 +14,7 @@
         action.add('four', function(d){console.info('four...' + d);})
         action.ban('one', 'two').fire('testing ban...');
         action.fire('no ban to fire...');
+        action.remove('three', 'four').fire();
 	 */
 	global.ActionSet = {
 		createNew: function() {
@@ -30,10 +31,16 @@
 					ActionSet.add.apply(this, arguments);
                     return this;
 				},
-                // 在fire执行前，可以暂时禁止指定的action
+                // 在fire执行前，可以暂时禁止指定的actions
                 // 参数形式： ban(name1, name2, name3...)
                 'ban': function() {
                     ActionSet.ban.apply(this, arguments);
+                    return this;
+                },
+                // 永久移除指定的actions
+                // 参数形式： remove(name1, name2, name3...)
+                'remove': function() {
+                    ActionSet.remove.apply(this, arguments);
                     return this;
                 },
 				/**
@@ -60,8 +67,14 @@
 		},
         'ban': function() {
             var args = arguments;
-            for (var index in arguments) {
-                this.banedActions[arguments[index]] = true;
+            for (var index in args) {
+                this.banedActions[args[index]] = true;
+            };
+        },
+        'remove': function() {
+            var args = arguments;
+            for (var index in args) {
+                delete this.actions[args[index]];
             };
         },
 		'fire': function() {
