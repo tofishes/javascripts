@@ -371,7 +371,9 @@
       $(this.rootGroup).append(path);
     }
 
-    $(params.container).delegate('.jvectormap-region', 'mouseover mouseout', function(e){
+    // @tofishes 改成bind方式，解决jquery1.8版本出现的bug
+    $(params.container).bind('mouseover mouseout', function(e){
+        if (!$(e.target).is('.jvectormap-region')) return;
       var path = e.target,
         code = e.target.id.substr(e.target.id.indexOf('_')+1),
         labelShowEvent = $.Event('labelShow.jvectormap'),
@@ -427,7 +429,9 @@
 
     if (params.markers) {
       this.createMarkers(params.markers);
-      $(params.container).delegate('.jvectormap-marker', 'mouseover mouseout', function(e){
+    // @tofishes 改成bind方式，解决jquery1.8版本出现的bug
+      $(params.container).bind('mouseover mouseout', function(e){
+        if (!$(e.target).is('.jvectormap-marker')) return;
         var marker = e.target,
             index = marker.getAttribute('data-index'),
             labelShowEvent = $.Event('markerLabelShow.jvectormap'),
