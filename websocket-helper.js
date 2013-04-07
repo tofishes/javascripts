@@ -50,8 +50,12 @@ function Socket(options) {
     this.tryTimes = 20;
     this.events = {};
 };
-Socket.prototype.open = function() {
+// 开启一个socket连接，并绑定各事件处理
+// 可选 传url参数，会覆盖new Socket时候设置的options.url
+Socket.prototype.open = function(url) {
     var _this = this;
+    this.url = url || this.url;
+
     this.socket = this.protocal ? new WebSocket(this.url, this.protocal) : new WebSocket(this.url);
     var events = this.events, oe = this.originalEvents;
 
