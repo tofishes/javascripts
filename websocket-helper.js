@@ -84,9 +84,9 @@ Socket.prototype.on = function(type, action) {
 };
 // 可以对原生的做状态判断
 Socket.prototype.send = function (data) {
-    if (this.socket.readyState === WebSocket.OPEN)
+    if (this.socket && this.socket.readyState === WebSocket.OPEN)
         this.socket.send(data);
 };
 Socket.prototype.close = function () {
-    this.socket && this.socket.close && this.socket.close();
+    this.socket && this.socket.close();
 };
