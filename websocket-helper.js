@@ -23,6 +23,7 @@
 // socket.on('new_message', function() {})
 // // 按约定触发post-user，需返回数据为JSON: {'event_type': 'post-user', ...}
 // socket.on('post-user', function() {})
+// 最后，调用socket.open(url)打开一个连接，这里的url可选，将覆盖new时候的参数rul
 function Socket(options) {
     this.url = options.url;
     this.protocal = options.protocal;
