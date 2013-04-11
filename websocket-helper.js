@@ -44,10 +44,11 @@ function Socket(options) {
         return data.event_type;
     };
 
+    // 去除目前比较鸡肋的，实现有误的重连功能
     // 断开重连的间隔时间, 默认10秒
-    this.tryInterval = 10000;
+    // this.tryInterval = 10000;
     // 断开重连的尝试次数
-    this.tryTimes = 20;
+    // this.tryTimes = 20;
     this.events = {};
 };
 // 开启一个socket连接，并绑定各事件处理
@@ -87,15 +88,5 @@ Socket.prototype.send = function (data) {
         this.socket.send(data);
 };
 Socket.prototype.close = function () {
-    this.socket && this.socket.close();
-};
-Socket.prototype.reopen = function () {
-    var _this = this;
-    if (this.socket && this.socket.readyState >= WebSocket.CLOSING && this.tryTimes > 0) {
-        _this.close();
-        setTimeout(function () {
-            _this.open();
-            _this.tryTimes -= 1;
-        }, _this.tryInterval);
-    };
+    this.socket && this.socket.close && this.socket.close();
 };
