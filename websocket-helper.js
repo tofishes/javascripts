@@ -119,4 +119,6 @@
             socket.ping(pingContent)
         }, this.pingInterval * 1000);
     };
-})(window)
+    
+    window.Socket = Socket;
+})(window);
