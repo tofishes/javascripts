@@ -110,15 +110,15 @@
         return this;
     };
     // 对原生webScoket接口ping的扩展，定时ping
-    Socket.protocal.ping = function (pingContent) {
+    Socket.prototype.ping = function (pingContent) {
         pingContent = pingContent || this.pingContent;
         var socket = this;
         window.clearTimeout(pingTimeoutId);
         pingTimeoutId = setTimeout(function () {
             socket.send(pingContent);
-            socket.ping(pingContent)
+            socket.ping(pingContent);
         }, this.pingInterval * 1000);
     };
-    
+
     window.Socket = Socket;
 })(window);
