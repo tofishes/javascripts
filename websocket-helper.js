@@ -41,8 +41,8 @@
         ];
 
         // 以下参数涉及到自定义内容
-        this.pingContent = null;  // 自动ping服务器发送的信息，保持连接用的，信息为null则不自动ping
-        this.pingInterval = 60; // ping的时间间隔，默认60秒，单位秒
+        this.pingContent = options.pingContent || null;  // 自动ping服务器发送的信息，保持连接用的，信息为null则不自动ping
+        this.pingInterval = options.pingInterval || 60; // ping的时间间隔，默认60秒，单位秒
 
         // 如何解析后端数据，默认解析为JSON
         this.parseData = options.parseData || function (data) {
